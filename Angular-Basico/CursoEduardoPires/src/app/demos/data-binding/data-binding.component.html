@@ -1,0 +1,40 @@
+<div class="container main-container">
+    <h3>Interpolation</h3>
+
+    <p>O numero de cliques é: {{ contadorClique }}</p>
+
+    <br>
+    <br>
+
+    <h3>Property Binding</h3>
+    <button class="btn btn-info" [disabled]="contadorClique >= 10">Info</button>
+
+    <br>
+    <br>
+
+    <img [src]="urlImagem" height="50px" width="50px">
+
+    <br>
+    <br>
+    <h3>Event Binding</h3>
+    <button class="btn btn-success" (click)="AdicionarClique()">Adicionar Clique</button>
+    <button class="btn btn-warning" (click)="ZerarContador()" [disabled]="contadorClique < 10">Zerar Contador</button>
+
+    <br>
+    <br>
+
+    <!--input type="text" (keyup)="PerdaDeFoco($event)" placeholder="Digite seu nome">
+    <br>
+    <br>
+    <label>Seu nome é: {{ nome }}</label-->
+
+    <!--input type="text" [ngModel]="nome" (ngModelChange)="nome = $event" (keyup)="PerdaDeFoco($event)" placeholder="Digite seu nome">
+    <br>
+    <br>
+    <label>Seu nome é: {{ nome }}</label-->
+
+    <input type="text" [(ngModel)]="nome" (keyup)="PerdaDeFoco($event)" placeholder="Digite seu nome">
+    <br>
+    <br>
+    <label>Seu nome é: {{ nome }}</label>
+</div>
