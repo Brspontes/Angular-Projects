@@ -25,7 +25,7 @@ import { CadastroComponent } from './demos/reactiveforms/cadastro/cadastro.compo
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    [RouterModule.forRoot(rootRouterConfig, { useHash: false})]
+    [RouterModule.forRoot(rootRouterConfig, { useHash: false})] //Roteamento básico
   ],
   providers: [
     {provide: APP_BASE_HREF, useValue: '/'}
