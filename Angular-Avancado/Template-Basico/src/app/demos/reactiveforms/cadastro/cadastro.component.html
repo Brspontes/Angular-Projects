@@ -17,7 +17,10 @@
             <div class="form-group">
                 <label class="col-md-2 control-label" for="cpf">CPF</label>
                 <div class="col-md-10">
-                    <input class="form-control" id="cpf" type="text" placeholder="Cpf (requerido)" formControlName="cpf"/>
+                    <input class="form-control" id="cpf" type="text" placeholder="Cpf (requerido)" formControlName="cpf" cpf [textMask]="{mask: MASKS.cpf.textMask}"/>
+                    <span class="text-danger" *ngIf="CadastroForm.get('cpf')?.errors && (CadastroForm.get('cpf').dirty || CadastroForm.get('cpf').touched)">
+                        <p>Cpf Inválido</p>
+                    </span>
                 </div>
             </div>
             <div class="form-group">
@@ -26,7 +29,8 @@
                     <input class="form-control" id="email" [ngClass]="{'is-invalid': CadastroForm.get('email').errors && (CadastroForm.get('email').dirty || CadastroForm.get('email').touched)}" type="text" placeholder="Email (requerido)" formControlName="email"/>
                     <span class="text-danger" *ngIf="CadastroForm.get('email')?.errors?.required && (CadastroForm.get('email').dirty || CadastroForm.get('email').touched)">
                         <p>Preencha este campo</p>
-                    </span> <span class="text-danger" *ngIf="CadastroForm.get('email')?.errors?.email && (CadastroForm.get('email').dirty || CadastroForm.get('email').touched)">
+                    </span> 
+                    <span class="text-danger" *ngIf="CadastroForm.get('email')?.errors?.email && (CadastroForm.get('email').dirty || CadastroForm.get('email').touched)">
                         <p>Email formato inválido</p>
                     </span>
                 </div>
@@ -41,6 +45,9 @@
                 <label class="col-md-2 control-label" for="confirmasenha">Confirme a Senha</label>
                 <div class="col-md-10">
                     <input class="form-control" id="confirmasenha" type="text" placeholder="Confirme a Senha (requerido)" formControlName="confirmasenha"/>
+                    <span class="text-danger" *ngIf="CadastroForm.get('confirmasenha')?.errors?.rangeLength && (CadastroForm.get('confirmasenha').dirty || CadastroForm.get('confirmasenha').touched)">
+                        <p>Preencha este campo</p>
+                    </span>
                 </div>
             </div>
             <div class="form-group">
