@@ -1,5 +1,5 @@
+import { Produto } from './../models/produto';
 import { Component, OnInit } from '@angular/core';
-import { Produto } from '../models/produto';
 
 @Component({
   selector: 'app-produto-dashboard',
@@ -56,5 +56,8 @@ export class ProdutoDashboardComponent implements OnInit {
     }];
   }
 
+  mudarStatus(event: Produto) :void {
+    event.ativo = !event.ativo;
+  }
 
 }
