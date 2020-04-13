@@ -1,6 +1,6 @@
 <div class="container main-container">
 
-    <h1>Lista Produtos</h1>
+    <h1 #teste>Lista Produtos</h1>
     <app-produto-count [produtos]="produtos"></app-produto-count>
     <div class="row text-center">
         <app-produto-card-detalhe class="col-md-4"  *ngFor="let produto of produtos" [produto]="produto" (status)="mudarStatus($event)">
