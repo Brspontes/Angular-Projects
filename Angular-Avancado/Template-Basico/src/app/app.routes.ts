@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
-import { CadastroComponent } from './demos/reactiveforms/cadastro/cadastro.component';
 import { Routes, RouterModule } from '@angular/router';
+import { CadastroComponent } from './demos/reactiveforms/cadastro/cadastro.component';
 import { HomeComponent } from './navegacao/home/home.component';
 import { SobreComponent } from './institucional/sobre/sobre.component';
+import { NotfoundComponent } from './navegacao/notfound/notfound.component';
 
 const rootRouterConfig: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full'},
     { path: 'home', component: HomeComponent},
     { path: 'cadastro', component: CadastroComponent},
     { path: 'sobre', component: SobreComponent },
-    { path: 'produtos', loadChildren: () => import('./demos/arquitetura-componentes/produto.module').then(m => m.ProdutoModule)}
+    { path: 'produtos', loadChildren: () => import('./demos/arquitetura-componentes/produto.module').then(m => m.ProdutoModule)},
+    { path: '**', component: NotfoundComponent} //404 sempre por ultimo nas rotas
 ];
 
 @NgModule({
