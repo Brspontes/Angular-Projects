@@ -1,3 +1,4 @@
+import { ProdutoAppComponent } from './demos/arquitetura-componentes/produto.app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -15,6 +16,7 @@ import { NavegacaoModule } from './navegacao/navegacao.module';
 
 @NgModule({
   declarations: [
+    ProdutoAppComponent,
     AppComponent,
     SobreComponent,
     CadastroComponent
@@ -30,7 +32,7 @@ import { NavegacaoModule } from './navegacao/navegacao.module';
     AppRoutingModule
   ],
   providers: [
-    {provide: APP_BASE_HREF, useValue: '/'}
+    //{provide: APP_BASE_HREF, useValue: '/'}
   ],
   bootstrap: [AppComponent]
 })
