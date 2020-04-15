@@ -10,6 +10,7 @@ const rootRouterConfig: Routes = [
     { path: 'home', component: HomeComponent},
     { path: 'cadastro', component: CadastroComponent},
     { path: 'sobre', component: SobreComponent },
+    { path: 'admin', loadChildren: () => import('./admin/admin.module').then(a => a.AdminModule)},
     { path: 'produtos', loadChildren: () => import('./demos/arquitetura-componentes/produto.module').then(m => m.ProdutoModule)},
     { path: '**', component: NotfoundComponent} //404 sempre por ultimo nas rotas
 ];

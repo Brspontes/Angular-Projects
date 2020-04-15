@@ -13,6 +13,7 @@ import { SobreComponent } from './institucional/sobre/sobre.component';
 import { AppRoutingModule } from './app.routes';
 import { CadastroComponent } from './demos/reactiveforms/cadastro/cadastro.component';
 import { NavegacaoModule } from './navegacao/navegacao.module';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { NavegacaoModule } from './navegacao/navegacao.module';
     TextMaskModule,
     CustomFormsModule,
     NavegacaoModule,
+    AdminModule,
     AppRoutingModule
   ],
   providers: [
