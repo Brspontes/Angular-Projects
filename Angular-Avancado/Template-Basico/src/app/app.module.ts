@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app.routes';
 import { CadastroComponent } from './demos/reactiveforms/cadastro/cadastro.component';
 import { NavegacaoModule } from './navegacao/navegacao.module';
 import { AdminModule } from './admin/admin.module';
+import { AuthGuard } from './services/app.guard';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { AdminModule } from './admin/admin.module';
   ],
   providers: [
     //{provide: APP_BASE_HREF, useValue: '/'}
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
