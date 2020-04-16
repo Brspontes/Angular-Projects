@@ -1,3 +1,4 @@
+import { CadastroGuard } from './services/cadastro.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CadastroComponent } from './demos/reactiveforms/cadastro/cadastro.component';
@@ -9,7 +10,7 @@ import { AuthGuard } from './services/app.guard';
 const rootRouterConfig: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full'},
     { path: 'home', component: HomeComponent},
-    { path: 'cadastro', component: CadastroComponent, canDeactivate: []},
+    { path: 'cadastro', component: CadastroComponent, canDeactivate: [CadastroGuard]},
     { path: 'sobre', component: SobreComponent },
     { path: 'admin', loadChildren: () => import('./admin/admin.module').then(a => a.AdminModule), canLoad: [AuthGuard], canActivate: [AuthGuard]}, //canActivate: Prende a rota, para modulos lazeload ou não
     { path: 'produtos', loadChildren: () => import('./demos/arquitetura-componentes/produto.module').then(m => m.ProdutoModule)},

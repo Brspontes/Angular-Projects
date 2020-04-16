@@ -1,3 +1,4 @@
+import { CadastroGuard } from './services/cadastro.guard';
 import { ProdutoAppComponent } from './demos/arquitetura-componentes/produto.app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -36,7 +37,8 @@ import { AuthGuard } from './services/app.guard';
   ],
   providers: [
     //{provide: APP_BASE_HREF, useValue: '/'}
-    AuthGuard
+    AuthGuard,
+    CadastroGuard
   ],
   bootstrap: [AppComponent]
 })

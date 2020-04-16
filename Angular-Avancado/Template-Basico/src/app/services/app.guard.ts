@@ -4,7 +4,7 @@ import { CanLoad, CanActivate } from '@angular/router';
 @Injectable()
 export class AuthGuard implements CanLoad, CanActivate {
     
-    user = { admin: false, logged: false }
+    user = { admin: true, logged: true }
 
     canActivate() : boolean {
         return this.user.admin;
