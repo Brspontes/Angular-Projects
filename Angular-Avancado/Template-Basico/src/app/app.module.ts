@@ -21,6 +21,7 @@ import { NavegacaoModule } from './navegacao/navegacao.module';
 import { AdminModule } from './admin/admin.module';
 import { AuthGuard } from './services/app.guard';
 import { FilmesComponent } from './demos/pipes/filmes/filmes.component';
+import { FileSizePipe } from './demos/pipes/filmes/filesize.pipe';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FilmesComponent } from './demos/pipes/filmes/filmes.component';
     AppComponent,
     SobreComponent,
     CadastroComponent,
-    FilmesComponent
+    FilmesComponent,
+    FileSizePipe,
   ],
   imports: [
     BrowserModule,
