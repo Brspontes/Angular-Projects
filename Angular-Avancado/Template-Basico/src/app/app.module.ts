@@ -7,6 +7,10 @@ import { APP_BASE_HREF } from '@angular/common';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { AppComponent } from './app.component';
 
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+registerLocaleData(localePt);
+
 import { NgBrazil } from 'ng-brazil' 
 import { TextMaskModule } from 'angular2-text-mask';
 import { CustomFormsModule } from 'ng2-validation'
@@ -16,13 +20,15 @@ import { CadastroComponent } from './demos/reactiveforms/cadastro/cadastro.compo
 import { NavegacaoModule } from './navegacao/navegacao.module';
 import { AdminModule } from './admin/admin.module';
 import { AuthGuard } from './services/app.guard';
+import { FilmesComponent } from './demos/pipes/filmes/filmes.component';
 
 @NgModule({
   declarations: [
     ProdutoAppComponent,
     AppComponent,
     SobreComponent,
-    CadastroComponent
+    CadastroComponent,
+    FilmesComponent
   ],
   imports: [
     BrowserModule,
