@@ -1,3 +1,4 @@
+import { ImageFormaterPipe } from './demos/pipes/filmes/image.pipe';
 import { CadastroGuard } from './services/cadastro.guard';
 import { ProdutoAppComponent } from './demos/arquitetura-componentes/produto.app.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -31,6 +32,7 @@ import { FileSizePipe } from './demos/pipes/filmes/filesize.pipe';
     CadastroComponent,
     FilmesComponent,
     FileSizePipe,
+    ImageFormaterPipe
   ],
   imports: [
     BrowserModule,
