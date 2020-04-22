@@ -1,8 +1,9 @@
+import { BarService } from './demos/bar-di-zones/bar/bar.service';
 import { ImageFormaterPipe } from './demos/pipes/filmes/image.pipe';
 import { CadastroGuard } from './services/cadastro.guard';
 import { ProdutoAppComponent } from './demos/arquitetura-componentes/produto.app.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Provider } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
@@ -23,6 +24,11 @@ import { AdminModule } from './admin/admin.module';
 import { AuthGuard } from './services/app.guard';
 import { FilmesComponent } from './demos/pipes/filmes/filmes.component';
 import { FileSizePipe } from './demos/pipes/filmes/filesize.pipe';
+import { HttpClientModule } from '@angular/common/http';
+
+export const BAR_PROVIDERS: Provider[] = [
+  BarService
+];
 
 @NgModule({
   declarations: [
@@ -43,12 +49,14 @@ import { FileSizePipe } from './demos/pipes/filmes/filesize.pipe';
     CustomFormsModule,
     NavegacaoModule,
     AdminModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule 
   ],
   providers: [
     //{provide: APP_BASE_HREF, useValue: '/'}
     AuthGuard,
-    CadastroGuard
+    CadastroGuard,
+    //BAR_PROVIDERS
   ],
   bootstrap: [AppComponent]
 })

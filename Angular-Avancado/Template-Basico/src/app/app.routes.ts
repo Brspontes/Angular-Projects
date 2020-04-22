@@ -1,3 +1,4 @@
+import { BarComponent } from './demos/bar-di-zones/bar/bar.component';
 import { CadastroGuard } from './services/cadastro.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -13,6 +14,7 @@ const rootRouterConfig: Routes = [
     { path: 'home', component: HomeComponent},
     { path: 'cadastro', component: CadastroComponent, canDeactivate: [CadastroGuard]},
     { path: 'sobre', component: SobreComponent },
+    { path: 'bar', component: BarComponent },
     { path: 'admin', loadChildren: () => import('./admin/admin.module').then(a => a.AdminModule), canLoad: [AuthGuard], canActivate: [AuthGuard]}, //canActivate: Prende a rota, para modulos lazeload ou não
     { path: 'produtos', loadChildren: () => import('./demos/arquitetura-componentes/produto.module').then(m => m.ProdutoModule)},
     { path: 'filmes', component: FilmesComponent},
