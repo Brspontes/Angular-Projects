@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { BarUnidadeConfig, BAR_UNIDADE_CONFIG } from './bar.config';
 import { BarService, BarServiceMock, BarFactory, BebidaService } from './bar.service';
-import { Component, OnInit, inject, Inject, Injector } from '@angular/core';
+import { Component, OnInit, inject, Inject, Injector, NgZone } from '@angular/core';
 
 @Component({
   selector: 'app-bar',
@@ -24,7 +24,8 @@ export class BarComponent implements OnInit {
   constructor(private barServices: BarService, 
     @Inject('ConfigManualUnidade') private ApiConfigManual: BarUnidadeConfig,
     @Inject(BAR_UNIDADE_CONFIG) private ApiConfigManualConst: BarUnidadeConfig,
-    private bebidaService: BebidaService) { }
+    private bebidaService: BebidaService,
+    private ngZone: NgZone) { }
 
   ngOnInit() {
     this.barBebida1 = this.barServices.obterBebidas();
@@ -32,5 +33,34 @@ export class BarComponent implements OnInit {
     this.Config = this.ApiConfigManualConst;
     this.dadosUnidade = this.barServices.obterUnidade();
     this.barbebida2 = this.bebidaService.obterBebidas();
+  }
+
+  public progress: number = 0;
+  public label: string
+
+  processWithinAngularZone(){
+    this.label = 'dentro';
+    this.progress = 0;
+    this._increaseProgress(() => console.log('Finalizado por dentro'));
+  }
+
+  processOutsideOfAngularZone(){
+    this.label = 'Fora';
+    this.progress = 0;
+    this.ngZone.runOutsideAngular(() => {
+      this._increaseProgress(() => {
+        this.ngZone.run(() => {console.log('Finalizado fora');})
+      })
+    })
+  }
+
+  _increaseProgress(doneCallback: () => void){
+    this.progress += 1;
+    console.log(`Progresso atual: ${this.progress}%`);
+    if(this.progress < 100){
+      window.setTimeout(() => this._increaseProgress(doneCallback), 10);
+    } else{
+      doneCallback();
+    }
   }
 }
