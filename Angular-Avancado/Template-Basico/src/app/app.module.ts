@@ -1,3 +1,4 @@
+import { BarModule } from './demos/bar-di-zones/bar/bar.module';
 import { BarService } from './demos/bar-di-zones/bar/bar.service';
 import { ImageFormaterPipe } from './demos/pipes/filmes/image.pipe';
 import { CadastroGuard } from './services/cadastro.guard';
@@ -50,7 +51,11 @@ export const BAR_PROVIDERS: Provider[] = [
     NavegacaoModule,
     AdminModule,
     AppRoutingModule,
-    HttpClientModule 
+    BarModule.forRoot({
+      unidadeId: 1000,
+      unidadeToken: 'eca938c99a0e9ff9129dc'
+    }),
+    HttpClientModule
   ],
   providers: [
     //{provide: APP_BASE_HREF, useValue: '/'}
