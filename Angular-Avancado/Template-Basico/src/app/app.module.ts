@@ -1,3 +1,4 @@
+import { TodoModule } from './demos/todo-list/todo.module';
 import { BarModule } from './demos/bar-di-zones/bar/bar.module';
 import { BarService } from './demos/bar-di-zones/bar/bar.service';
 import { ImageFormaterPipe } from './demos/pipes/filmes/image.pipe';
@@ -55,7 +56,8 @@ export const BAR_PROVIDERS: Provider[] = [
       unidadeId: 1000,
       unidadeToken: 'eca938c99a0e9ff9129dc'
     }),
-    HttpClientModule
+    HttpClientModule,
+    TodoModule
   ],
   providers: [
     //{provide: APP_BASE_HREF, useValue: '/'}
