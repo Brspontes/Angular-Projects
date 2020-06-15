@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ValidationMessages, GenericValidator, DisplayMessage } from './../../Utils/generic-form-validation';
 import { ContaService } from './../services/conta.service';
 import { Usuario } from './../models/usuario';
@@ -24,7 +25,7 @@ export class CadastroComponent implements OnInit, AfterViewInit {
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
 
-  constructor(private fb: FormBuilder, private contaService: ContaService) {
+  constructor(private fb: FormBuilder, private contaService: ContaService, private router: Router) {
     this.validationMessages = {
       email: {
         required: 'Informe o e-mail',
@@ -78,10 +79,14 @@ export class CadastroComponent implements OnInit, AfterViewInit {
   }
 
   processarSucesso(response: any){
+    this.cadastroForm.reset();
+    this.errors = [];
 
+    this.contaService.LocalStorage.salvarDadosLocaisUsuario(response);
+    this.router.navigate(['/home']);
   }
 
   processarFalha(fail: any){
-
+    this.errors = fail.error.errors;
   }
 }
