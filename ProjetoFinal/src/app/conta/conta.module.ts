@@ -1,3 +1,4 @@
+import { Contaguard } from './../services/conta.guard';
 import { ContaService } from './services/conta.service';
 import { ContaAppComponent } from './conta.app.component';
 import { RouterModule } from '@angular/router';
@@ -29,7 +30,8 @@ import { LoginComponent } from './login/login.component';
     CustomFormsModule
   ],
   providers: [
-    ContaService
+    ContaService,
+    Contaguard
   ]
 })
 export class ContaModule { }
