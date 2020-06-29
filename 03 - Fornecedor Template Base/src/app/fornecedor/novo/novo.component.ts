@@ -10,6 +10,8 @@ import { ValidationMessages, GenericValidator, DisplayMessage } from 'src/app/ut
 import { Fornecedor } from '../models/fornecedor';
 import { FornecedorService } from '../services/fornecedor.service';
 
+import { MASKS, NgBrazilValidators } from 'ng-brazil';
+
 @Component({
   selector: 'app-novo',
   templateUrl: './novo.component.html'
@@ -21,7 +23,8 @@ export class NovoComponent implements OnInit {
   errors: any[] = [];
   fornecedorForm: FormGroup;
   fornecedor: Fornecedor = new Fornecedor();
-
+  public MASKS = MASKS;
+  
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
@@ -41,6 +44,7 @@ export class NovoComponent implements OnInit {
       },
       documento: {
         required: 'Informe o Documento',
+        cpf: 'CPF em formato inválido',
       },
       logradouro: {
         required: 'Informe o Logradouro',
@@ -69,10 +73,10 @@ export class NovoComponent implements OnInit {
 
     this.fornecedorForm = this.fb.group({
       nome: ['', [Validators.required]],
-      documento: ['', [Validators.required]],
+      documento: ['', [Validators.required], NgBrazilValidators.cpf],
       ativo: ['', [Validators.required]],
-      tipoFornecedor: ['', [Validators.required]],     
-
+      tipoFornecedor: ['', [Validators.required]],
+      
       endereco: this.fb.group({
         logradouro: ['', Validators.required],
         numero: ['', Validators.required],
