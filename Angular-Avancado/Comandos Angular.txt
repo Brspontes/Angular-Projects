@@ -1,1 +1,1 @@
-ng generate component nomepasta/nomecomponent
+$event.target.alue = valor da caixa de texto em questão

@@ -1,46 +1,15 @@
-import {
-  Component,
-  OnInit,
-  ViewChildren,
-  ElementRef
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControlName,
-  AbstractControl
-} from '@angular/forms';
-import {
-  Router
-} from '@angular/router';
+import { StringUtils } from './../../utils/string-utils';
+import { CepConsulta } from './../models/endereco';
+import { Component, OnInit, ViewChildren, ElementRef} from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControlName,AbstractControl} from '@angular/forms';
+import { Router } from '@angular/router';
+import { Observable, fromEvent, merge } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { ValidationMessages, GenericValidator, DisplayMessage } from 'src/app/utils/generic-form-validation';
+import { Fornecedor } from '../models/fornecedor';
+import { FornecedorService } from '../services/fornecedor.service';
+import { MASKS, NgBrazilValidators } from 'ng-brazil';
 
-import {
-  Observable,
-  fromEvent,
-  merge
-} from 'rxjs';
-
-import {
-  ToastrService
-} from 'ngx-toastr';
-
-import {
-  ValidationMessages,
-  GenericValidator,
-  DisplayMessage
-} from 'src/app/utils/generic-form-validation';
-import {
-  Fornecedor
-} from '../models/fornecedor';
-import {
-  FornecedorService
-} from '../services/fornecedor.service';
-
-import {
-  MASKS,
-  NgBrazilValidators
-} from 'ng-brazil';
 
 @Component({
   selector: 'app-novo',
@@ -117,7 +86,7 @@ export class NovoComponent implements OnInit {
         numero: ['', Validators.required],
         complemento: [''],
         bairro: ['', Validators.required],
-        cep: ['', Validators.required, NgBrazilValidators.cpf],
+        cep: ['', [Validators.required, NgBrazilValidators.cep]],
         cidade: ['', Validators.required],
         estado: ['', Validators.required],
       })
@@ -210,4 +179,48 @@ export class NovoComponent implements OnInit {
     this.errors = fail.error.errors;
     this.toastr.error('Ocorreu um erro!', 'Opa :(');
   }
+
+  buscarCep(cep: string){
+
+    cep = StringUtils.somenteNumeros(cep);
+    if (cep.length < 8) return;
+
+    this.fornecedorService.consultarCep(cep)
+      .subscribe(
+        cepRetorno => this.preencherEnderecoConsulta(cepRetorno),
+        erro => this.errors.push(erro));
+  }
+
+  //patch value para dados aninhados
+  preencherEnderecoConsulta(cepConsulta: CepConsulta){
+
+    let retorno = cepConsulta;
+
+    this.fornecedorForm.patchValue({
+      endereco: {
+        logradouro: cepConsulta.logradouro,
+        bairro: cepConsulta.bairro,
+        cep: cepConsulta.cep,
+        cidade: cepConsulta.localidade,
+        estado: cepConsulta.uf
+      }
+    });
+  }
+
+adicionaFornecedor() {
+    if(this.fornecedorForm.dirty && this.fornecedorForm.valid) {
+      this.fornecedor = Object.assign({}, this.fornecedor, this.fornecedorForm.value);
+      this.formResult = JSON.stringify(this.fornecedor);
+
+      this.fornecedor.endereco.cep = StringUtils.somenteNumeros(this.fornecedor.endereco.cep);
+      this.fornecedor.documento = StringUtils.somenteNumeros(this.fornecedor.documento);
+
+      this.fornecedorService.novoFornecedor(this.fornecedor).subscribe(
+        sucesso => { this.processarSucesso(sucesso) },
+        falha => { this.processarFalha(falha) }
+      );
+      this.mudancasNaoSalvas = false;
+    }
+}
+
 }
