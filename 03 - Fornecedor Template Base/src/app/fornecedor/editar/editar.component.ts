@@ -1,3 +1,4 @@
+import { CepConsulta } from './../models/endereco';
 import { Component, OnInit, ViewChildren, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControlName, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -10,6 +11,9 @@ import { ValidationMessages, GenericValidator, DisplayMessage } from 'src/app/ut
 import { Fornecedor } from '../models/fornecedor';
 import { Endereco } from '../models/endereco';
 import { FornecedorService } from '../services/fornecedor.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { StringUtils } from 'src/app/utils/string-utils';
+import { utilsBr } from 'js-brasil';
 
 @Component({
   selector: 'app-editar',
@@ -32,6 +36,8 @@ export class EditarComponent implements OnInit {
   displayMessage: DisplayMessage = {};
   textoDocumento: string = '';
 
+  MASKS = utilsBr.MASKS;
+
   tipoFornecedor: number;
   formResult: string = '';
 
@@ -41,7 +47,8 @@ export class EditarComponent implements OnInit {
     private fornecedorService: FornecedorService,
     private router: Router,
     private toastr: ToastrService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private modalService: NgbModal) {
 
     this.validationMessages = {
       nome: {
@@ -124,6 +131,44 @@ export class EditarComponent implements OnInit {
     }
   }
 
+  buscarCep(cep: string) {
+
+    cep = StringUtils.somenteNumeros(cep);
+    if (cep.length < 8) return;
+
+    this.fornecedorService.consultarCep(cep)
+      .subscribe(
+        cepRetorno => this.preencherEnderecoConsulta(cepRetorno),
+        erro => this.errors.push(erro));
+  }
+
+  editarEndereco() {
+    if (this.enderecoForm.dirty && this.enderecoForm.valid) {
+
+      this.endereco = Object.assign({}, this.endereco, this.enderecoForm.value);
+      
+      this.endereco.cep = StringUtils.somenteNumeros(this.endereco.cep);
+      this.endereco.fornecedorId = this.fornecedor.id;
+
+      this.fornecedorService.atualizarEndereco(this.endereco)
+        .subscribe(
+          () => this.processarSucessoEndereco(this.endereco),
+          falha => { this.processarFalhaEndereco(falha) }
+        );
+    }
+  }
+
+  preencherEnderecoConsulta(cepConsulta: CepConsulta) {
+
+    this.enderecoForm.patchValue({
+      logradouro: cepConsulta.logradouro,
+      bairro: cepConsulta.bairro,
+      cep: cepConsulta.cep,
+      cidade: cepConsulta.localidade,
+      estado: cepConsulta.uf
+    });
+  }
+
   processarSucesso(response: any) {
     this.errors = [];
 
@@ -137,6 +182,23 @@ export class EditarComponent implements OnInit {
 
   processarFalha(fail: any) {
     this.errors = fail.error.errors;
+    this.toastr.error('Ocorreu um erro!', 'Opa :(');
+  }
+
+  abrirModal(content){
+    this.modalService.open(content);
+  }
+
+  processarSucessoEndereco(endereco: Endereco) {
+    this.errors = [];
+
+    this.toastr.success('Endereço atualizado com sucesso!', 'Sucesso!');
+    this.fornecedor.endereco = endereco
+    this.modalService.dismissAll();
+  }
+
+  processarFalhaEndereco(fail: any) {
+    this.errorsEndereco = fail.error.errors;
     this.toastr.error('Ocorreu um erro!', 'Opa :(');
   }
 }
