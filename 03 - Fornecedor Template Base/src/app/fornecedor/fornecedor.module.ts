@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { NgBrazil } from 'ng-brazil';
 import { TextMaskModule } from 'angular2-text-mask';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { TextMaskModule } from 'angular2-text-mask';
     ReactiveFormsModule,
     HttpClientModule,
     NgBrazil,
-    TextMaskModule
+    TextMaskModule,
+    NgxSpinnerModule
   ],
   providers: [
     FornecedorService,

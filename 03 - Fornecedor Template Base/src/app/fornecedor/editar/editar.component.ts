@@ -14,6 +14,7 @@ import { FornecedorService } from '../services/fornecedor.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StringUtils } from 'src/app/utils/string-utils';
 import { utilsBr } from 'js-brasil';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-editar',
@@ -48,7 +49,8 @@ export class EditarComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private route: ActivatedRoute,
-    private modalService: NgbModal) {
+    private modalService: NgbModal,
+    private spinner: NgxSpinnerService) {
 
     this.validationMessages = {
       nome: {
@@ -84,7 +86,7 @@ export class EditarComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.spinner.show();
     this.fornecedorForm = this.fb.group({
       id: '',
       nome: ['', [Validators.required]],
@@ -103,7 +105,12 @@ export class EditarComponent implements OnInit {
       cidade: ['', [Validators.required]],
       estado: ['', [Validators.required]],
       fornecedorId: ''
+      
     });
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 5000);
   }
 
   ngAfterViewInit() {
