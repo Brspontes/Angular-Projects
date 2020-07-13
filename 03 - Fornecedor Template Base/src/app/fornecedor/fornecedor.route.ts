@@ -1,3 +1,4 @@
+import { FornecedorResolve } from './services/fornecedor.resolve';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -14,9 +15,15 @@ const fornecedorRouterConfig: Routes = [
         children: [
             { path: 'listar-todos', component: ListaComponent },
             { path: 'adicionar-novo', component: NovoComponent },
-            { path: 'editar/:id', component: EditarComponent },
-            { path: 'detalhes/:id', component: DetalhesComponent },
-            { path: 'excluir/:id', component: ExcluirComponent }
+            { path: 'editar/:id', component: EditarComponent, resolve:{
+                fornecedor: FornecedorResolve
+            } },
+            { path: 'detalhes/:id', component: DetalhesComponent,  resolve:{
+                fornecedor: FornecedorResolve
+            }  },
+            { path: 'excluir/:id', component: ExcluirComponent,  resolve:{
+                fornecedor: FornecedorResolve
+            }  }
         ]
     }
 ];

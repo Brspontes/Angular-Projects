@@ -1,3 +1,4 @@
+import { FornecedorResolve } from './services/fornecedor.resolve';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NovoComponent } from './novo/novo.component';
@@ -34,7 +35,8 @@ import { TextMaskModule } from 'angular2-text-mask';
     TextMaskModule
   ],
   providers: [
-    FornecedorService
+    FornecedorService,
+    FornecedorResolve
   ]
 })
 export class FornecedorModule { }
