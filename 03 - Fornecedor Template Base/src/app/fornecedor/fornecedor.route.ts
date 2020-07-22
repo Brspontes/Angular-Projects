@@ -8,21 +8,22 @@ import { ListaComponent } from './lista/lista.component';
 import { EditarComponent } from './editar/editar.component';
 import { DetalhesComponent } from './detalhes/detalhes.component';
 import { ExcluirComponent } from './excluir/excluir.component';
+import { FornecedorGuard } from '../services/fornecedor.guard';
 
 const fornecedorRouterConfig: Routes = [
     {
         path: '', component: FornecedorAppComponent,
         children: [
             { path: 'listar-todos', component: ListaComponent },
-            { path: 'adicionar-novo', component: NovoComponent },
+            { path: 'adicionar-novo', component: NovoComponent, canActivate:[FornecedorGuard], data:[{ claim: {nome: 'Fornecedor', valor: 'Adicionar'}}] },
             { path: 'editar/:id', component: EditarComponent, resolve:{
-                fornecedor: FornecedorResolve
+                fornecedor: FornecedorResolve, canActivate:[FornecedorGuard], data:[{ claim: {nome: 'Fornecedor', valor: 'Atualizar'}}] 
             } },
             { path: 'detalhes/:id', component: DetalhesComponent,  resolve:{
                 fornecedor: FornecedorResolve
             }  },
             { path: 'excluir/:id', component: ExcluirComponent,  resolve:{
-                fornecedor: FornecedorResolve
+                fornecedor: FornecedorResolve, canActivate:[FornecedorGuard], data:[{ claim: {nome: 'Fornecedor', valor: 'Excluir'}}] 
             }  }
         ]
     }

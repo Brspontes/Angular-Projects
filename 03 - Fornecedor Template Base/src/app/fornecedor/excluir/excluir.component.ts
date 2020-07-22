@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ExcluirComponent {
 
   fornecedor: Fornecedor = new Fornecedor();
-
+  
   constructor(
     private fornecedorService: FornecedorService,
     private route: ActivatedRoute,
